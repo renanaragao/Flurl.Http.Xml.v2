@@ -11,7 +11,7 @@ namespace Flurl.Http.Xml.Tests.Factories
 {
     public class EchoHttpClientFactory : DefaultHttpClientFactory
     {
-        private string HttpRequestBodyToString(HttpRequest httpRequest)
+        private static string HttpRequestBodyToString(HttpRequest httpRequest)
         {
             string result;
 
@@ -29,17 +29,19 @@ namespace Flurl.Http.Xml.Tests.Factories
 
         private HttpClient GetClient()
         {
-            var builder = new WebHostBuilder().Configure(app =>
-            {
-                app.Use(async (context, next) =>
-                {
-                    string requestBody = HttpRequestBodyToString(context.Request);
-                    await context.Response.WriteAsync(requestBody);
-                });
-            });
+            //var builder = new WebHostBuilder().Configure(app =>
+            //{
+            //    app.Use(async (context, next) =>
+            //    {
+            //        string requestBody = HttpRequestBodyToString(context.Request);
+            //        await context.Response.WriteAsync(requestBody);
+            //    });
+            //});
 
-            var server = new TestServer(builder) { AllowSynchronousIO = true };
-            return server.CreateClient();
+            //var server = new TestServer(builder) { AllowSynchronousIO = true };
+            //return server.CreateClient();
+
+            return null;
         }
 
         public override HttpClient CreateHttpClient(HttpMessageHandler handler) => GetClient();

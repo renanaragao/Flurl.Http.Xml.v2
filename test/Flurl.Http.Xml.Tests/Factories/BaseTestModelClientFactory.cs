@@ -18,16 +18,7 @@ namespace Flurl.Http.Xml.Tests.Factories
 
         private HttpClient GetClient()
         {
-            var builder = new WebHostBuilder().Configure(app =>
-            {
-                app.Use(async (context, next) =>
-                {
-                    await context.Response.WriteAsync(_responseBody);
-                });
-            });
-
-            var server = new TestServer(builder) { AllowSynchronousIO = true };
-            return server.CreateClient();
+            return base.CreateHttpClient(base.CreateMessageHandler());
         }
 
         public override HttpClient CreateHttpClient(HttpMessageHandler handler) => GetClient();
